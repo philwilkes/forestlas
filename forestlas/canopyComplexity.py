@@ -70,7 +70,8 @@ class CanopyComplexity:
         factor = 1 / self.z_scale
         z_min, z_max = self.threshold * factor, int((self.z.max() + (self.z_scale*1000)) * factor)
         ##############################################
-        self.bins = z_max-(z_min-1) # number of bins
+        self.bins = int(z_max-(z_min-1)) # number of bins
+        print 'self.bins:', self.bins
         self.zxOrig = np.linspace(z_min, z_max, self.bins) / factor # "x-axis"
 
         return self
