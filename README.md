@@ -1,8 +1,7 @@
 # forestlas
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![alt text](http://www2.geog.ucl.ac.uk/~ucfaptv/3_PLOTS_geo_trees_bar_spectra_v5.png)
-
+![LiDAR derived vertical profiles](http://www2.geog.ucl.ac.uk/~ucfaptv/3_PLOTS_geo_trees_bar_spectra_v5.png)
 Python code for generating metrics of forest vertical structure from airborne LiDAR data. This code was developed as 
 part of my PhD (completed in 2016, can be viewed 
 <a href=https://www.researchgate.net/publication/290436021_Assessment_of_forest_canopy_vertical_structure_with_multi-scale_remote_sensing_from_the_plot_to_the_large_area>here</a>) 
