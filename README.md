@@ -15,11 +15,11 @@ Functions include reading `.las` files to numpy array, writing to `.las` as well
 LiDAR data.
 The main set of functions found in `forestlas.canopyComplexity`.
 These allow you to derive metrics of vertical canopy structure such as <i>Pgap</i> and also estimate number of canopy layers.
-More information can be found in this paper <a href=https://doi.org/10.1111/2041-210X.12510>Wilkes, P., et al. (2016). Using discrete-return airborne laser scanning to 
+More information can be found in this paper <a href=https://doi.org/10.1111/2041-210X.12510>Wilkes, P. et al. (2016). Using discrete-return airborne laser scanning to 
 quantify number of canopy strata across diverse forest types. Methods in Ecology and Evolution, 7(6), 700–712</a>. 
 
 
 #### Funding
 This research was funded by the Australian Postgraduate Award, Cooperative Research Centre for Spatial Information 
 under Project 2.07, TERN/AusCover and Commonwealth Scientific and IndustrialResearch Organisation (CSIRO) Postgraduate 
-Scholarship. The
+Scholarship.
