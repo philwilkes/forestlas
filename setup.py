@@ -9,5 +9,5 @@ setup(
     url='http://www.crcsi.com.au/Research/2-Feature-Extraction/2-07-Woody-Vegetation',
     license='LICENSE.txt',
     description='Tools for generating woody attribution features',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
 )
