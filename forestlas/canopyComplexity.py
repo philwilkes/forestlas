@@ -50,7 +50,7 @@ class CanopyComplexity:
 
         self.z = self.las['z']
         self.zw = self.las['rtn_tot']
-        self.lenLAS = float(len(self.las))
+        self.lenLAS = len(self.las)
 
         rtn_weight = np.around(1. / self.las['rtn_tot'], decimals=2)
         self.total = np.sum(rtn_weight) # sum of weighted returns
@@ -71,7 +71,6 @@ class CanopyComplexity:
         z_min, z_max = self.threshold * factor, int((self.z.max() + (self.z_scale*1000)) * factor)
         ##############################################
         self.bins = int(z_max-(z_min-1)) # number of bins
-        print 'self.bins:', self.bins
         self.zxOrig = np.linspace(z_min, z_max, self.bins) / factor # "x-axis"
 
         return self
@@ -94,7 +93,7 @@ class CanopyComplexity:
                 for (i, height_below_toc) in enumerate(sorted(self.zxOrig)):
                     idx = [self.z >= height_below_toc] # index all rows >= height z
                     num_of_returns_above_z = len(self.z[idx]) # calculates len of z array above height z
-                    self.pgap[i] = 1. - (num_of_returns_above_z / self.lenLAS) # populates pgap with proportion of weight
+                    self.pgap[i] = 1. - (num_of_returns_above_z / float(self.lenLAS)) # populates pgap with proportion of weight
         
         return self
     
@@ -166,14 +165,12 @@ class CanopyComplexity:
         
             #number_of_modes
             signs = np.diff(self.sd/abs(self.sd)) # finds zero crossings
-            idx = [signs == -2] 
+            idx = np.where(signs == -2)[0] 
             potentialLayerLocation = self.zx[idx] # and their height
             layerAmplitude = self.fd[idx] # and the signal amplitude
             maxAmplitude = self.fd.max() # and the maximum amplitude for the CHP
             self.layerLocation = [layer for i, layer in enumerate(potentialLayerLocation) if layerAmplitude[i] > maxAmplitude * noise] # and filters noise
             self.layerCount = len(self.layerLocation)
-
-            idx = [signs == 2] 
             self.crownBase = self.zx[idx] # and their height
         
         return self
@@ -256,16 +253,16 @@ class bootstrapComplexity:
         
         self.bsCHP = np.zeros(self.N)
         
-        self.chp = CanopyComplexity(mp=tempDirectory).fromLAS(las).canopyHeightProfile("model")
+        self.chp = CanopyComplexity(mp=tempDirectory).fromLAS(las).CHP("model")
 
         for i in range(self.N):
     
-            z, zw = self.chp.simulateCloud
+            z = self.chp.simulateCloud()
 
-            if z.max() < 2 or len(z) < 2 or 0 in zw:
+            if z['z'].max() < 2 or len(z) < 2 or 0 in z['rtn_tot']:
                 self.bsCHP[i] = 0
             else:
-                sample = CanopyComplexity().fromSample(z, zw).canopyHeightProfile()
+                sample = CanopyComplexity().fromLAS(z).CHP()
                 self.bsCHP[i] = sample.layerCount
         
         if type(las) is str: plotName = os.path.split(os.path.splitext(las)[0])[1]
